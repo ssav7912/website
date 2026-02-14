@@ -12,11 +12,10 @@ img {
     max-width: 100%;
 }
 
-/* @media screen and (max-width: 80ch) {
-    img {
-        max-width: 100%;
-        height: auto;
+@media screen and (max-width: 660px) {
+    .nicetext {
+        width: 660px;
     }
 
     
-} */
+}
