@@ -7,12 +7,13 @@
     <title>Vase With Flowers</title>
 </head>
 <body>
-    <header>
+    <header class="nicetext">
         <h1>
             Vase With Flowers
         </h1>
         <h2>SXSW Sydney 2025</h2>
-        <img style="width:30vw" src="../resources/vasewithflowers/render.png"/>
+        <img src="../resources/vasewithflowers/render.png"/>
+        <p>A larger set of renders is available <a href="https://www.artstation.com/artwork/RKVloX">here</a></p>
     </header>
     <main class="nicetext">
         <p>
@@ -42,7 +43,7 @@
                 <img src="../resources/vasewithflowers/grid/8.png">
                 <img src="../resources/vasewithflowers/grid/9.jpg">
             </div>
-            <figcaption>Some images of patrons experimenting with the exhibit.</figcaption>
+            <figcaption><i>Some images of patrons experimenting with the exhibit.</i></figcaption>
         </figure>
 
         <h3>Concept</h3>
@@ -55,7 +56,7 @@
         <p>
         <figure>
             <img src="../resources/vasewithflowers/ref.jpg"/>
-            <figcaption>A reference photo I took of the original vase in the NY Met.</figcaption>
+            <figcaption><i>A reference photo I took of the original vase in the NY Met.</i></figcaption>
         </figure>
         The piece frames Australiana in those latter terms. The 'rugged beautiful country' is brought inside into 
         our urban environment, manicured and protected for display. Symbols of our material wealth are throughout - fruit, ornate
@@ -76,7 +77,7 @@
             <video controls loop autoplay>
                 <source type="video/webm" src="../resources/vasewithflowers/conceptsofaplan.webm"/>
             </video>
-            <figcaption>Early proof-of-concept test using pre-recorded footage</figcaption>
+            <figcaption><i>Early proof-of-concept test using pre-recorded footage</i></figcaption>
         </figure>
         <p>
             I used a BlackMagic UltraStudio to accept an HD 60fps HDMI feed from a GoPro camera into Unreal. This media source
@@ -90,7 +91,7 @@
         </p>
         <figure>
             <img src="../resources/vasewithflowers/Lime.png"/>
-            <figcaption>Some elements, such as the lime and gum leaves, were scanned photogrammetrically (by me).</figcaption>
+            <figcaption><i>Some elements, such as the lime and gum leaves, were scanned photogrammetrically (by me).</i></figcaption>
         </figure>
         <p>
             This project was also an opportunity to experiment with Unreal's new Substrate material framework, which supports
@@ -99,6 +100,29 @@
             This results in an incredibly unique (and beautiful) iridescent effect that shifts and changes with light and view angle, and a soft,
             speckly appearance. 
         </p>
+        <figure>
+            <div style="display:grid; grid-template-columns: auto auto;">
+                <img src="../resources/vasewithflowers/materialbase.png"/>
+                <img src="../resources/vasewithflowers/materialtop.png"/>
+            </div>
+            <figcaption><i>The base and top layers used on the vase</i></figcaption>
+        </figure>
+        <p>
+        The vase has a 2-layer topology. A painted, base layer and a uniform clearcoat layer for glints and iridescence.
+        The base layer uses a specular profile to twist the reflected specular light towards a deep purple at about 63 degrees incidence.
+        The top layer uses a thin-film iridescence function based on the painted normals to add iridescent haloing around the acid etching in the 'waves'
+        printed onto the vase. There is also a very slight glint added to give a speckled appearance under direct light. 
+        </p>
+        <figure>
+            <img src="../resources/vasewithflowers/vasepaint.png"/>
+            <figcaption><i>Hand-painted base layer, before applying the custom specular profile and iridescent clearcoating.</i></figcaption>
+        </figure>
+        <p>
+            The iridescent layer is very subtle, and appears mostly as a greenish-gold hue on bright highlights.  
+        </p>
+        <figure>
+            <img src="../resources//vasewithflowers/vasefront.jpg"/>
+        </figure>
         <p>
             The scene has some flies in the scene. These move around on a pre-programmed track, randomly selecting and playing to a set of
             pre-programmed pause points on a random, timed loop. The loop is interrupted by any significant change in the light around the fly,
@@ -108,7 +132,7 @@
             <video controls loop autoplay style="height: 90vh">
                 <source type="video/webm" src="../resources/vasewithflowers/digitalfliestech.webm"/>
             </video>
-            <figcaption>Debugging visualiser and demonstration of the fly impulse sensor.</figcaption>
+            <figcaption><i>Debugging visualiser and demonstration of the fly impulse sensor.</i></figcaption>
         </figure>
         <p>
             I wrote a simple compute shader that performs a basic prefix sum to compute the average luminance within a screen-space region on screen, and takes a smoothed delta
@@ -174,8 +198,18 @@
 <p>
     The shader is inserted as a pre-post process pass with the SceneViewExtension interface. It accepts a screen region in 
     UV coords and a thread count. The UV region is derived from a simple screen-space square around the fly's origin. Threads are distributed evenly across the UV region and a buffer is allocated such that wave intrinsics
-    can be used to atomically sum and write the luminance value for its wave bin. Because the resulting samples were relatively few (1024 samples),
+    can be used to atomically sum and write the luminance value for its wave bin. These means I dispatch only a single wave per thread-group. Because the resulting samples were relatively few (1024 samples),
     the final sum + average is computed on the CPU in a simple linear scan.  
+</p>
+<h3>Acknowledgements</h3>
+<p>
+    I'd like to thank my friends, family and colleagues for attending and supporting my exhibit.
+    In particular, I'd like to shout-out:
+    <ul>
+    <li>Michael Pham, for having my back on exhibit planning, setup and logistics</li>
+    <li>Hugh Guest, for his technical advice on hardware and VP.</li>
+    <li>My employer, for generously loaning hardware for testing and the exhibit itself.</li>
+</ul> 
 </p>
 
 
