@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="../resources/classes.css"/>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vase With Flowers</title>
+</head>
+<body>
+    <header>
+        <h1>
+            Vase With Flowers
+        </h1>
+        <h2>SXSW Sydney 2025</h2>
+        <img style="width:30vw" src="../resources/vasewithflowers/render.png"/>
+    </header>
+    <main class="nicetext">
+        <p>
+            In October 2025 I was given the opportunity to present an XR artwork at SXSW Sydney. 
+            This was an interactive installation where a virtual still-life scene (shown in the 
+            painting frame) was lit in real-time by light from the real, physical environment.
+        </p>
+        <figure>
+            <video controls style="height: 90vh">
+                <source type="video/mp4" src="../resources/vasewithflowers/exhibitdemo.mp4"/>
+            </video>
+        </figure>
+        <p>
+            This was the first time I've ever exhibited one of my artworks in a physical, public space. 
+            It was very rewarding seeing the number of people come through 
+            and the interest they took in experimenting with the space and trying to work out the 'trick'.             
+        </p>
+        <figure>
+            <div style="display: grid; grid-template-columns: auto auto auto; grid-template-rows: auto auto auto;">
+                <img src="../resources/vasewithflowers/grid/1.jpg">
+                <img src="../resources/vasewithflowers/grid/2.jpg">
+                <img src="../resources/vasewithflowers/grid/3.jpg">
+                <img src="../resources/vasewithflowers/grid/4.jpg">
+                <img src="../resources/vasewithflowers/grid/5.jpg">
+                <img src="../resources/vasewithflowers/grid/6.jpg">
+                <img src="../resources/vasewithflowers/grid/7.jpg">
+                <img src="../resources/vasewithflowers/grid/8.png">
+                <img src="../resources/vasewithflowers/grid/9.jpg">
+            </div>
+            <figcaption>Some images of patrons experimenting with the exhibit.</figcaption>
+        </figure>
+
+        <h3>Concept</h3>
+        I developed the piece from what was originally a form and material study of a vase by Tiffany Furnaces
+        I saw in the NY Metropolitan Museum, which I was enraptured by. I wanted to develop a perspective of
+        mine that had been brewing for quite a while, that the stereotypical imagery of 'Australiana' is 
+        entirely disconnected from the reality of my life. 'Australiana' embodies the romantic idea of a harsh and unforgiving land,
+        beautiful yet deadly in its ruggedness, populated by bushmen, survivalists and explorers who live light as isolated self-sufficient supermen. This contradicts
+        the reality of Australian culture: the product of a highly urbanised, wealthy, centralised and somewhat cliquey people.
+        <p>
+        <figure>
+            <img src="../resources/vasewithflowers/ref.jpg"/>
+            <figcaption>A reference photo I took of the original vase in the NY Met.</figcaption>
+        </figure>
+        The piece frames Australiana in those latter terms. The 'rugged beautiful country' is brought inside into 
+        our urban environment, manicured and protected for display. Symbols of our material wealth are throughout - fruit, ornate
+        home goods, fine fabrics. However the ruggedness and sparsity of the country is transposed onto our material
+        culture: the room is poorly lit and decidedly old-fashioned and the dust, humidity and flies invade the scene.
+        </p>
+        <p>
+        This reflects my broad experience growing up, of abundance that is nevertheless slightly tired and outmoded.
+        Of drought, water restrictions, dry dusty school paddocks, ancient school computers (and terrible internet). 
+        But also of mangoes and cherries; large, beautiful houses, and a general sense of invincibility - that none of the 
+        world's problems could touch us.
+        </p>
+        <h3>The Technical Details</h3>
+        <p>
+            The exhibit consists of a program I wrote in Unreal Engine, a screen, a camera attached to the screen, and a light source. 
+        </p>
+        <figure>
+            <video controls loop autoplay>
+                <source type="video/webm" src="../resources/vasewithflowers/conceptsofaplan.webm"/>
+            </video>
+            <figcaption>Early proof-of-concept test using pre-recorded footage</figcaption>
+        </figure>
+        <p>
+            I used a BlackMagic UltraStudio to accept an HD 60fps HDMI feed from a GoPro camera into Unreal. This media source
+            is used as a rect light source texture positioned behind the scene's virtual camera, so that the video feed
+            is projected back onto the scene as a light source. In this way, changes to the light that is cast onto the screen (or as best approximated by what the camera sees)
+            are reflected in the virtual scene as relative increases or decreases in emitted light. 
+        </p>
+        <p>
+            In a simpler (but not quite correct) way, every pixel in the video is cast back into the scene as its own 'photon' of light,
+            and bounced and traced to compute the resulting lighting and shadows. 
+        </p>
+        <figure>
+            <img src="../resources/vasewithflowers/Lime.png"/>
+            <figcaption>Some elements, such as the lime and gum leaves, were scanned photogrammetrically (by me).</figcaption>
+        </figure>
+        <p>
+            This project was also an opportunity to experiment with Unreal's new Substrate material framework, which supports
+            advanced effects such as layering and multiple scattering, rough refraction, and glints. The vase with made of a material
+            called <a href="https://en.wikipedia.org/wiki/Favrile_glass">'Favrile glass'</a>, a Tiffanny Furnaces signature made by acid etching glass.
+            This results in an incredibly unique (and beautiful) iridescent effect that shifts and changes with light and view angle, and a soft,
+            speckly appearance. 
+        </p>
+        <p>
+            The scene has some flies in the scene. These move around on a pre-programmed track, randomly selecting and playing to a set of
+            pre-programmed pause points on a random, timed loop. The loop is interrupted by any significant change in the light around the fly,
+            at which point it will fly off screen (and return after a certain time), to 'react' to a perceived threat.
+        </p>
+        <figure>
+            <video controls loop autoplay style="height: 90vh">
+                <source type="video/webm" src="../resources/vasewithflowers/digitalfliestech.webm"/>
+            </video>
+            <figcaption>Debugging visualiser and demonstration of the fly impulse sensor.</figcaption>
+        </figure>
+        <p>
+            I wrote a simple compute shader that performs a basic prefix sum to compute the average luminance within a screen-space region on screen, and takes a smoothed delta
+            of the value across previous frames to determine whether to send a 'fly away' signal. This means that fast or large movements will trigger the
+            animation, while slow ones will not. 
+        </p>
+<!-- HTML generated using hilite.me -->
+ <div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%;"><span></span><span style="color: #339; font-weight: bold">float2</span><span style="color: #BBB"> </span>UVMin;
+<span style="color: #339; font-weight: bold">float2</span><span style="color: #BBB"> </span>UVMax;
+<span style="color: #339; font-weight: bold">float2</span><span style="color: #BBB"> </span>NumThreads;
+<span style="color: #339; font-weight: bold">float3</span><span style="color: #BBB"> </span>GroupCount;
+<span style="color: #339; font-weight: bold">int</span><span style="color: #BBB"> </span>Debug;
+<span style="color: #339; font-weight: bold">Texture2D</span><span style="color: #333">&lt;</span><span style="color: #339; font-weight: bold">float4</span><span style="color: #333">&gt;</span><span style="color: #BBB"> </span>Input;
+<span style="color: #339; font-weight: bold">RWTexture2D</span><span style="color: #333">&lt;</span><span style="color: #339; font-weight: bold">float4</span><span style="color: #333">&gt;</span><span style="color: #BBB"> </span>DebugSceneColor;
+<span style="color: #339; font-weight: bold">RWBuffer</span><span style="color: #333">&lt;</span><span style="color: #339; font-weight: bold">float</span><span style="color: #333">&gt;</span><span style="color: #BBB"> </span>OutLumaScale;
+
+
+[<span style="color: #555; font-weight: bold">numthreads</span>(THREADS_X,<span style="color: #BBB"> </span>THREADS_Y,<span style="color: #BBB"> </span><span style="color: #00D; font-weight: bold">1</span>)]
+<span style="color: #339; font-weight: bold">void</span><span style="color: #BBB"> </span>LightingAnalyzerShader(<span style="color: #339; font-weight: bold">uint2</span><span style="color: #BBB"> </span>DispatchThreadId<span style="color: #BBB"> </span><span style="color: #333">:</span><span style="color: #BBB"> </span><span style="color: #555; font-weight: bold">SV_DispatchThreadID</span>,<span style="color: #BBB"> </span><span style="color: #339; font-weight: bold">uint3</span><span style="color: #BBB"> </span>GroupIndex<span style="color: #BBB"> </span><span style="color: #333">:</span><span style="color: #BBB"> </span><span style="color: #555; font-weight: bold">SV_GroupID</span>)
+{
+<span style="color: #BBB">    </span><span style="color: #888">//get sample coords</span>
+<span style="color: #BBB">    </span><span style="color: #339; font-weight: bold">float2</span><span style="color: #BBB"> </span>NormalisedExecIndex<span style="color: #BBB"> </span><span style="color: #333">=</span><span style="color: #BBB"> </span>((<span style="color: #339; font-weight: bold">float2</span>)DispatchThreadId)<span style="color: #BBB"> </span><span style="color: #333">/</span><span style="color: #BBB"> </span>NumThreads;
+
+<span style="color: #BBB">    </span><span style="color: #339; font-weight: bold">float2</span><span style="color: #BBB"> </span>CorrectedUVMin<span style="color: #BBB"> </span><span style="color: #333">=</span><span style="color: #BBB"> </span>ScreenAlignedUV(UVMin);
+<span style="color: #BBB">    </span><span style="color: #339; font-weight: bold">float2</span><span style="color: #BBB"> </span>CorrectedUVMax<span style="color: #BBB"> </span><span style="color: #333">=</span><span style="color: #BBB"> </span>ScreenAlignedUV(UVMax);
+<span style="color: #BBB">    </span>
+<span style="color: #BBB">    </span><span style="color: #339; font-weight: bold">float</span><span style="color: #BBB"> </span>ThreadU<span style="color: #BBB"> </span><span style="color: #333">=</span><span style="color: #BBB"> </span><span style="color: #007020">lerp</span>(CorrectedUVMin.x,<span style="color: #BBB"> </span>CorrectedUVMax.x,<span style="color: #BBB"> </span>NormalisedExecIndex.x);
+<span style="color: #BBB">    </span><span style="color: #339; font-weight: bold">float</span><span style="color: #BBB"> </span>ThreadV<span style="color: #BBB"> </span><span style="color: #333">=</span><span style="color: #BBB"> </span><span style="color: #007020">lerp</span>(CorrectedUVMax.y,<span style="color: #BBB"> </span>CorrectedUVMin.y,<span style="color: #BBB"> </span>NormalisedExecIndex.y);
+<span style="color: #BBB">    </span>
+<span style="color: #BBB">    </span><span style="color: #339; font-weight: bold">float2</span><span style="color: #BBB"> </span>ThreadUV<span style="color: #BBB"> </span><span style="color: #333">=</span><span style="color: #BBB"> </span><span style="color: #339; font-weight: bold">float2</span>(ThreadU,<span style="color: #BBB"> </span>ThreadV);
+<span style="color: #BBB">    </span>
+<span style="color: #BBB">    </span><span style="color: #888">//float4 SceneColor = 0.0.xxxx;</span>
+<span style="color: #BBB">    </span><span style="color: #339; font-weight: bold">float4</span><span style="color: #BBB"> </span>SceneColor<span style="color: #BBB"> </span><span style="color: #333">=</span><span style="color: #BBB"> </span>Input.Sample(GlobalPointClampedSampler,<span style="color: #BBB"> </span>ThreadUV);
+<span style="color: #BBB">    </span><span style="color: #080; font-weight: bold">const</span><span style="color: #BBB"> </span><span style="color: #339; font-weight: bold">float4</span><span style="color: #BBB"> </span>LumaCoefficients<span style="color: #BBB"> </span><span style="color: #333">=</span><span style="color: #BBB"> </span><span style="color: #339; font-weight: bold">float4</span>(<span style="color: #60E; font-weight: bold">0.2126</span>,<span style="color: #BBB"> </span><span style="color: #60E; font-weight: bold">0.7152</span>,<span style="color: #BBB"> </span><span style="color: #60E; font-weight: bold">0.0722</span>,<span style="color: #BBB"> </span><span style="color: #60E; font-weight: bold">0.0</span>);
+<span style="color: #BBB">    </span>
+<span style="color: #BBB">    </span><span style="color: #339; font-weight: bold">float</span><span style="color: #BBB"> </span>Luma<span style="color: #BBB"> </span><span style="color: #333">=</span><span style="color: #BBB"> </span>Luminance(SceneColor.xyz);
+<span style="color: #BBB">    </span>
+<span style="color: #BBB">    </span><span style="color: #339; font-weight: bold">uint</span><span style="color: #BBB"> </span>FlattenedGroupID<span style="color: #BBB"> </span><span style="color: #333">=</span><span style="color: #BBB"> </span>GroupIndex.x<span style="color: #BBB"> </span><span style="color: #333">+</span><span style="color: #BBB"> </span>GroupCount.x<span style="color: #BBB"> </span><span style="color: #333">*</span><span style="color: #BBB"> </span>(GroupIndex.y<span style="color: #BBB"> </span><span style="color: #333">+</span><span style="color: #BBB"> </span>GroupCount.z<span style="color: #BBB"> </span><span style="color: #333">*</span><span style="color: #BBB"> </span>GroupIndex.z);
+<span style="color: #BBB">    </span>
+<span style="color: #BBB">    </span><span style="color: #339; font-weight: bold">float</span><span style="color: #BBB"> </span>LumaSum<span style="color: #BBB"> </span><span style="color: #333">=</span><span style="color: #BBB"> </span>WaveActiveSum(Luma);
+<span style="color: #BBB">    </span><span style="color: #080; font-weight: bold">if</span><span style="color: #BBB"> </span>(WaveIsFirstLane())
+<span style="color: #BBB">    </span>{
+<span style="color: #BBB">        </span>
+<span style="color: #BBB">        </span>OutLumaScale[FlattenedGroupID]<span style="color: #BBB"> </span><span style="color: #333">=</span><span style="color: #BBB"> </span>LumaSum;
+<span style="color: #BBB">        </span><span style="color: #888">//OutLumaScale[FlattenedGroupID] = Input.Load(uint3(DispatchThreadId.x, DispatchThreadId.y, 0));</span>
+<span style="color: #BBB">        </span><span style="color: #888">//Input[DispatchThreadId.xy] = float4(100.0, 0, 0, 0);</span>
+<span style="color: #BBB">    </span>}<span style="color: #BBB">    </span>
+<span style="color: #BBB">    </span>
+
+<span style="color: #BBB">    </span><span style="color: #080; font-weight: bold">if</span><span style="color: #BBB"> </span>(Debug<span style="color: #BBB"> </span><span style="color: #333">&gt;</span><span style="color: #BBB"> </span><span style="color: #40E; font-weight: bold">0</span>)
+<span style="color: #BBB">    </span>{
+<span style="color: #BBB">        </span><span style="color: #339; font-weight: bold">uint2</span><span style="color: #BBB"> </span>DebugCoords;
+<span style="color: #BBB">        </span>DebugSceneColor.GetDimensions(DebugCoords.x,<span style="color: #BBB"> </span>DebugCoords.y);
+<span style="color: #BBB">        </span><span style="color: #339; font-weight: bold">uint2</span><span style="color: #BBB"> </span>UAVCoords<span style="color: #BBB"> </span><span style="color: #333">=</span><span style="color: #BBB"> </span>(<span style="color: #339; font-weight: bold">int2</span>)<span style="color: #BBB"> </span>(ThreadUV<span style="color: #BBB"> </span><span style="color: #333">*</span><span style="color: #BBB"> </span>DebugCoords);
+<span style="color: #BBB">        </span><span style="color: #888">//uint2 UAVCoords = DispatchThreadId;</span>
+<span style="color: #BBB">        </span>DebugSceneColor[UAVCoords]<span style="color: #BBB"> </span><span style="color: #333">=</span><span style="color: #BBB"> </span>LumaSum.xxxx<span style="color: #BBB"> </span><span style="color: #333">+</span><span style="color: #BBB"> </span><span style="color: #339; font-weight: bold">float4</span>(<span style="color: #60E; font-weight: bold">10.0</span>,<span style="color: #BBB"> </span><span style="color: #60E; font-weight: bold">0.0</span>,<span style="color: #BBB"> </span><span style="color: #60E; font-weight: bold">10.0</span>,<span style="color: #BBB"> </span><span style="color: #40E; font-weight: bold">0</span>);
+<span style="color: #BBB">        </span><span style="color: #888">//DebugSceneColor[UAVCoords] = float4(CorrectedUVMin, 0.0.xx);</span>
+<span style="color: #BBB">    </span>}<span style="color: #BBB">   </span>
+<span style="color: #BBB">    </span>
+<span style="color: #BBB">    </span>
+}
+</pre></div>
+<p>
+    The shader is inserted as a pre-post process pass with the SceneViewExtension interface. It accepts a screen region in 
+    UV coords and a thread count. The UV region is derived from a simple screen-space square around the fly's origin. Threads are distributed evenly across the UV region and a buffer is allocated such that wave intrinsics
+    can be used to atomically sum and write the luminance value for its wave bin. Because the resulting samples were relatively few (1024 samples),
+    the final sum + average is computed on the CPU in a simple linear scan.  
+</p>
+
+
+<!-- 
+        <figure>
+            <div style="display: flex">
+                <img style="max-width: 50%" alt="A wide photograph of an exhibition booth, with a screen draped in curtains at the far end and a podium with a lamp."  src="../resources/vasewithflowers/exhibit.jpg"/>
+                <img style="max-width: 50%" alt="A close photograph of the podium and screen, showing a still life of a vase."  src="../resources/vasewithflowers/exhibitclose.jpg"/>
+            </div>
+            <figcaption style="max-width: 100%; justify-self:center;">Some images of the exhibit booth during setup. 
+                Very dark, as I needed to limit the amount of ambient light spilling into the sensor,
+            so that the impact of direct, point sources such as the lamp (or people) would be noticeable.</figcaption>
+        </figure> -->
+    </main>
+</body>
+    <footer>
+        <hr/>
+        <img src="../resources/smudgesit.bmp"/>
+        <a href="../index.html">Home</a> |
+        <a href="../resume.html">Hire me?</a>
+    </footer>
+</html>
