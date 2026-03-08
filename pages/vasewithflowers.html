@@ -47,18 +47,19 @@
         </figure>
 
         <h3>Concept</h3>
-        I developed the piece from what was originally a form and material study of a vase by Tiffany Furnaces
-        I saw in the NY Metropolitan Museum, which I was enraptured by. I wanted to develop a perspective of
-        mine that had been brewing for quite a while, that the stereotypical imagery of 'Australiana' is 
+        This piece was originally a form and material study of a vase by Tiffany Furnaces
+        I saw in the NY Metropolitan Museum in 2024, with the wider still life and interactive/XR elements developing from the original study.
+        I wanted to develop an idea that had been brewing for quite a while, that the stereotypical imagery of 'Australiana' is 
         entirely disconnected from the reality of my life. 'Australiana' embodies the romantic idea of a harsh and unforgiving land,
         beautiful yet deadly in its ruggedness, populated by bushmen, survivalists and explorers who live light as isolated self-sufficient supermen. This contradicts
-        the reality of Australian culture: the product of a highly urbanised, wealthy, centralised and somewhat cliquey people.
+        the reality of Australian culture: the product of a highly urbanised, wealthy, and centralised people, where the vast majority of our population lives in one of a handful
+        of capital cities.
         <p>
         <figure>
             <img src="../resources/vasewithflowers/ref.jpg"/>
             <figcaption><i>A reference photo I took of the original vase in the NY Met.</i></figcaption>
         </figure>
-        The piece frames Australiana in those latter terms. The 'rugged beautiful country' is brought inside into 
+        My piece frames Australiana in those latter terms. The 'rugged beautiful country' is brought inside into 
         our urban environment, manicured and protected for display. Symbols of our material wealth are throughout - fruit, ornate
         home goods, fine fabrics. However the ruggedness and sparsity of the country is transposed onto our material
         culture: the room is poorly lit and decidedly old-fashioned and the dust, humidity and flies invade the scene.
@@ -74,7 +75,7 @@
             The exhibit consists of a program I wrote in Unreal Engine, a screen, a camera attached to the screen, and a light source. 
         </p>
         <figure>
-            <video controls loop autoplay>
+            <video controls loop autoplay muted>
                 <source type="video/webm" src="../resources/vasewithflowers/conceptsofaplan.webm"/>
             </video>
             <figcaption><i>Early proof-of-concept test using pre-recorded footage</i></figcaption>
@@ -129,7 +130,7 @@
             at which point it will fly off screen (and return after a certain time), to 'react' to a perceived threat.
         </p>
         <figure>
-            <video controls loop autoplay style="height: 90vh">
+            <video controls loop autoplay style="height: 90vh" muted>
                 <source type="video/webm" src="../resources/vasewithflowers/digitalfliestech.webm"/>
             </video>
             <figcaption><i>Debugging visualiser and demonstration of the fly impulse sensor.</i></figcaption>
@@ -198,7 +199,7 @@
 <p>
     The shader is inserted as a pre-post process pass with the SceneViewExtension interface. It accepts a screen region in 
     UV coords and a thread count. The UV region is derived from a simple screen-space square around the fly's origin. Threads are distributed evenly across the UV region and a buffer is allocated such that wave intrinsics
-    can be used to atomically sum and write the luminance value for its wave bin. These means I dispatch only a single wave per thread-group. Because the resulting samples were relatively few (1024 samples),
+    can be used to atomically sum and write the luminance value for its wave bin. This means I dispatch only a single wave per thread-group. Because the resulting samples were relatively few (1024 samples),
     the final sum + average is computed on the CPU in a simple linear scan.  
 </p>
 <h3>Acknowledgements</h3>
